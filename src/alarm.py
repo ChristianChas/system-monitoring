@@ -22,16 +22,22 @@ class AlarmManager:
         print("4. Tillbaka till huvudmenyn")
 
     def add_alarm(self, alarm_type, threshold):
-        new_alarm = Alarm(alarm_type, threshold)
-        self.alarms.append(new_alarm)
-        print(f"\nLarm för {alarm_type} satt till {threshold}%.")
-
+        try:
+            threshold = int(threshold)
+            if not 1 <= threshold <= 100:
+                print("\nFel: Tröskelvärdet måste vara mellan 1 och 100%.")
+                return
+            new_alarm = Alarm(alarm_type, threshold)
+            self.alarms.append(new_alarm)
+            print(f"\nLarm för {alarm_type} satt till {threshold}%.")
+        except ValueError:
+            print("\nFel: Tröskelvärdet måste vara ett heltal.")
+            return
 
     def list_alarms(self):
         if not self.alarms:
             print("\nInga larm är konfigurerade ännu.")
             return
-
 
         print("\n=== Aktiva larm ===")
         for alarm in sorted(self.alarms, key=lambda a: (a.alarm_type, a.threshold)):

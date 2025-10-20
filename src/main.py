@@ -40,9 +40,12 @@ class Menu:
                             continue
 
                         threshold_input = input("Ange tröskelvärde (%): ").strip()
-                        threshold = int(threshold_input)
-
-                        self.alarm_manager.add_alarm(alarm_type, threshold)
+                        try:
+                            threshold = int(threshold_input)
+                            self.alarm_manager.add_alarm(alarm_type, threshold)
+                        except ValueError:
+                            print("\nFel: Tröskelvärdet måste vara ett heltal.")
+                            continue
                     case 3:
                         self.alarm_manager.list_alarms()
                     case 4:
