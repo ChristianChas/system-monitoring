@@ -49,20 +49,32 @@ class Menu:
                     case 3:
                         self.alarm_manager.list_alarms()
                     case 4:
-                        duration = int(input("Ange övervakningsduration (sekunder): "))
-                        interval = int(input("Ange uppdateringsintervall (sekunder): "))
-                        start_time = time.time()
-                        print(f"\nStartar övervakning i {duration} sekunder...")
-                        while time.time() - start_time < duration:
-                            self.monitor.show_system_status()
-                            monitor_data = {
-                                "CPU": self.monitor.get_cpu_usage(),
-                                "RAM": self.monitor.get_memory_usage()[0],
-                                "Disk": self.monitor.get_disk_usage()[0]
-                            }
-                            self.alarm_manager.check_alarms(monitor_data)
-                            time.sleep(interval)
-                        print("\nÖvervakning avslutad.")
+                        try:
+                            duration_input = input("Ange övervakningsduration (sekunder): ")
+                            interval_input = input("Ange uppdateringsintervall (sekunder): ")
+                            
+                            duration = int(duration_input)
+                            interval = int(interval_input)
+                            
+                            if duration <= 0 or interval <= 0:
+                                print("\nFel: Duration och intervall måste vara 1 eller större än 1 sekund.")
+                                continue
+                                
+                            start_time = time.time()
+                            print(f"\nStartar övervakning i {duration} sekunder...")
+                            while time.time() - start_time < duration:
+                                self.monitor.show_system_status()
+                                monitor_data = {
+                                    "CPU": self.monitor.get_cpu_usage(),
+                                    "RAM": self.monitor.get_memory_usage()[0],
+                                    "Disk": self.monitor.get_disk_usage()[0]
+                                }
+                                self.alarm_manager.check_alarms(monitor_data)
+                                time.sleep(interval)
+                            print("\nÖvervakning avslutad.")
+                        except ValueError:
+                            print("\nFel: Duration och intervall måste vara heltal.")
+                            continue
                     case 5:
                         print("Avslutar programmet.")
                         break
