@@ -1,5 +1,4 @@
 import psutil
-import time
 
 class Monitor:
 
@@ -31,16 +30,4 @@ class Monitor:
         print(f"RAM: {mem[0]}% ({mem[1]} MB av {mem[2]} MB)")
         print(f"Disk: {disk[0]}% ({disk[1]} GB av {disk[2]} GB)")
 
-    def start_monitoring(self, duration=10, interval=2):
-        print(f"\nStartar övervakning i {duration} sekunder...")
-        start_time = time.time()
-
-        while time.time() - start_time < duration:
-            self.show_system_status()
-            time.sleep(interval)
-
-        print("\nÖvervakning avslutad.")
-
-if __name__ == "__main__":
-    monitor = Monitor()
-    monitor.start_monitoring(duration=6, interval=2)
+    
