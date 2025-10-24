@@ -1,11 +1,10 @@
-# system-monitoring
+# System Monitoring App
 
-
-En enkel Python-konsolapp för att övervaka CPU, minne och disk. Du kan också skapa larm som varnar när användningen blir för hög.
+A simple Python console app to monitor CPU, memory, and disk usage. You can also set alarms that notify you when usage gets too high.
 
 ## Installation
 
-Appen använder biblioteket **psutil**. Installera det med:
+This app uses the **psutil** library. Install it with:
 
 ```bash
 pip install psutil
