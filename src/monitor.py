@@ -1,31 +1,32 @@
 import psutil
 
+# Klassen Monitor används för att övervaka systemets status (CPU, RAM och Disk)
 class Monitor:
 
-    def __init__(self):
-        pass
+    def __init__(self):  # Konstruktor – används här inte till något ännu
+        pass 
 
-    def get_cpu_usage(self):
+    def get_cpu_usage(self): # Hämtar aktuell CPU-användning i procent
         return psutil.cpu_percent(interval=1)
 
-    def get_memory_usage(self):
-        mem = psutil.virtual_memory()
+    def get_memory_usage(self): # Hämtar information om datorns RAM minne 
+        mem = psutil.virtual_memory()  
         used_mb = round(mem.used / (1024 * 1024), 1)
         total_mb = round(mem.total / (1024 * 1024), 1)
         return mem.percent, used_mb, total_mb
 
-    def get_disk_usage(self):
+    def get_disk_usage(self):  # Hämtar information om hårddiskens användning
         disk = psutil.disk_usage('/')
         used_gb = round(disk.used / (1024 * 1024 * 1024), 1)
         total_gb = round(disk.total / (1024 * 1024 * 1024), 1)
         return disk.percent, used_gb, total_gb
-
-    def show_system_status(self):
+ 
+    def show_system_status(self): # Hämtar aktuell status för CPU, RAM och Disk
         cpu = self.get_cpu_usage()
         mem = self.get_memory_usage()
         disk = self.get_disk_usage()
 
-        print("\n=== Systemstatus ===")
+        print("\n=== Systemstatus ===") # Skriver ut systemstatus på ett tydligt sätt
         print(f"CPU: {cpu}%")
         print(f"RAM: {mem[0]}% ({mem[1]} MB av {mem[2]} MB)")
         print(f"Disk: {disk[0]}% ({disk[1]} GB av {disk[2]} GB)")
